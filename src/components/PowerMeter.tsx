@@ -14,14 +14,20 @@ const PowerMeter: React.FC<PowerMeterProps> = ({ power, maxPower, onSpecialAttac
   return (
     <div className="w-full">
       <div className="flex justify-between mb-1">
-        <span className="font-bold text-sm">Ki Power</span>
+        <span className="font-bold text-sm">Energía Ki</span>
         <span className="text-sm font-semibold">{power}/{maxPower}</span>
       </div>
-      <div className="w-full h-4 bg-gray-700 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-dbs-purple transition-all duration-300"
-          style={{ width: `${powerPercentage}%` }}
-        />
+      <div className="w-full h-4 bg-gray-800 rounded-full overflow-hidden border border-dbs-darkPurple relative">
+        {/* Power segments - like fighting games */}
+        <div className="absolute inset-0 flex">
+          {Array(5).fill(0).map((_, i) => (
+            <div 
+              key={i} 
+              className={`flex-1 h-full ${i < Math.floor(powerPercentage / 20) ? 'bg-dbs-vividPurple' : 'bg-transparent'} 
+                border-r border-gray-700 last:border-r-0 transition-colors duration-200`}
+            />
+          ))}
+        </div>
       </div>
       <button
         onClick={onSpecialAttack}
@@ -31,7 +37,7 @@ const PowerMeter: React.FC<PowerMeterProps> = ({ power, maxPower, onSpecialAttac
             ? 'bg-dbs-vividPurple hover:bg-dbs-purple animate-power-pulse' 
             : 'bg-gray-600 cursor-not-allowed'}`}
       >
-        {isReady ? 'Special Attack' : 'Charging...'}
+        {isReady ? 'Ataque Especial' : 'Cargando...'}
       </button>
     </div>
   );

@@ -5,6 +5,7 @@ import HealthBar from './HealthBar';
 import PowerMeter from './PowerMeter';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
+import { Sword, Shield, Zap } from 'lucide-react';
 
 interface BattleArenaProps {
   player: Character;
@@ -19,9 +20,10 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   const [enemyHealth, setEnemyHealth] = useState(enemy.health);
   const [playerPower, setPlayerPower] = useState(0);
   const [isPlayerTurn, setIsPlayerTurn] = useState(true);
-  const [battleLog, setBattleLog] = useState<string[]>([`Battle with ${enemy.name} has begun!`]);
+  const [battleLog, setBattleLog] = useState<string[]>([`¡Ha comenzado la batalla contra ${enemy.name}!`]);
   const [isSpecialReady, setIsSpecialReady] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [lastMove, setLastMove] = useState<'attack' | 'defend' | 'special' | ''>('');
   
   const maxPower = 100;
   const powerGainPerTurn = 20;
@@ -29,7 +31,7 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
 
   useEffect(() => {
     if (!isPlayerTurn && !isGameOver) {
-      // Enemy's turn
+      // Turno del enemigo
       const timer = setTimeout(() => {
         enemyAttack();
       }, 1000);
@@ -39,7 +41,7 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   }, [isPlayerTurn, isGameOver]);
 
   useEffect(() => {
-    // Check for game over
+    // Verificar fin del juego
     if (playerHealth <= 0) {
       endGame(false);
     } else if (enemyHealth <= 0) {
@@ -51,18 +53,18 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
     setIsGameOver(true);
     if (playerWins) {
       toast({
-        title: "Victory!",
-        description: `You defeated ${enemy.name}!`,
+        title: "¡Victoria!",
+        description: `¡Has derrotado a ${enemy.name}!`,
       });
-      setBattleLog(prev => [...prev, `You defeated ${enemy.name}!`]);
+      setBattleLog(prev => [...prev, `¡Has derrotado a ${enemy.name}!`]);
       setTimeout(() => onWin(), 2000);
     } else {
       toast({
-        title: "Defeat!",
-        description: "You were defeated!",
+        title: "¡Derrota!",
+        description: "¡Has sido derrotado!",
         variant: "destructive"
       });
-      setBattleLog(prev => [...prev, "You were defeated!"]);
+      setBattleLog(prev => [...prev, "¡Has sido derrotado!"]);
       setTimeout(() => onLose(), 2000);
     }
   };
@@ -70,16 +72,35 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   const performAttack = () => {
     if (isGameOver) return;
     
-    // Calculate damage based on player power
+    // Calcular daño basado en el poder del jugador
     const damage = Math.floor(5 + (Math.random() * 10));
     const newEnemyHealth = Math.max(0, enemyHealth - damage);
     
     setEnemyHealth(newEnemyHealth);
-    setBattleLog(prev => [...prev, `You attacked ${enemy.name} for ${damage} damage!`]);
+    setBattleLog(prev => [...prev, `Has atacado a ${enemy.name} causando ${damage} de daño!`]);
+    setLastMove('attack');
     
-    // Gain power
+    // Ganar poder
     const newPower = Math.min(maxPower, playerPower + powerGainPerTurn);
     setPlayerPower(newPower);
+    
+    if (newPower >= maxPower) {
+      setIsSpecialReady(true);
+    }
+    
+    setIsPlayerTurn(false);
+  };
+
+  const defendAction = () => {
+    if (isGameOver) return;
+
+    // Ganar poder adicional al defender
+    const defensePower = Math.floor(powerGainPerTurn * 1.5);
+    const newPower = Math.min(maxPower, playerPower + defensePower);
+    
+    setPlayerPower(newPower);
+    setLastMove('defend');
+    setBattleLog(prev => [...prev, `Te has puesto en posición defensiva, obteniendo ${defensePower} de energía Ki.`]);
     
     if (newPower >= maxPower) {
       setIsSpecialReady(true);
@@ -91,14 +112,21 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   const enemyAttack = () => {
     if (isGameOver) return;
     
-    // Calculate enemy damage based on enemy power and difficulty
-    const damage = Math.floor((5 + (Math.random() * 10)) * difficultyMultiplier);
+    // Calcular daño enemigo basado en dificultad
+    let damage = Math.floor((5 + (Math.random() * 10)) * difficultyMultiplier);
+    
+    // Reducir daño si el jugador estaba defendiendo
+    if (lastMove === 'defend') {
+      damage = Math.floor(damage * 0.5);
+      setBattleLog(prev => [...prev, `¡Tu defensa ha reducido el daño recibido a la mitad!`]);
+    }
+    
     const newPlayerHealth = Math.max(0, playerHealth - damage);
     
     setPlayerHealth(newPlayerHealth);
-    setBattleLog(prev => [...prev, `${enemy.name} attacked you for ${damage} damage!`]);
+    setBattleLog(prev => [...prev, `${enemy.name} te ha atacado causando ${damage} de daño!`]);
     
-    // Random chance for enemy to use special attack
+    // Probabilidad de que el enemigo use ataque especial
     if (Math.random() < 0.1 * difficulty) {
       const specialDamage = Math.floor(enemy.specialAttack.damage * difficultyMultiplier);
       const newHealthAfterSpecial = Math.max(0, newPlayerHealth - specialDamage);
@@ -106,10 +134,11 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
       setPlayerHealth(newHealthAfterSpecial);
       setBattleLog(prev => [
         ...prev, 
-        `${enemy.name} used ${enemy.specialAttack.name} for ${specialDamage} damage!`
+        `¡${enemy.name} ha usado ${enemy.specialAttack.name} causando ${specialDamage} de daño!`
       ]);
     }
     
+    setLastMove('');
     setIsPlayerTurn(true);
   };
   
@@ -122,8 +151,9 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
     setEnemyHealth(newEnemyHealth);
     setBattleLog(prev => [
       ...prev, 
-      `You used ${player.specialAttack.name} for ${damage} damage!`
+      `¡Has usado ${player.specialAttack.name} causando ${damage} de daño!`
     ]);
+    setLastMove('special');
     
     setPlayerPower(0);
     setIsSpecialReady(false);
@@ -133,12 +163,16 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   return (
     <div className="w-full p-4 md:p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Character Stats & Controls */}
+        {/* Estadísticas de personajes y controles */}
         <div className="space-y-6">
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
-            <div className="bg-dbs-darkPurple/70 p-4 rounded-lg flex-1 w-full">
-              <h2 className="text-xl font-bold text-white mb-4">Player</h2>
-              <HealthBar currentHealth={playerHealth} maxHealth={player.health} name={player.name} />
+          <div className="flex flex-col gap-4">
+            <div className="bg-dbs-darkPurple/70 p-4 rounded-lg w-full">
+              <HealthBar 
+                currentHealth={playerHealth} 
+                maxHealth={player.health} 
+                name={player.name} 
+                isPlayer={true} 
+              />
               
               <div className="mt-6">
                 <PowerMeter 
@@ -150,26 +184,40 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
               </div>
             </div>
             
-            <div className="bg-dbs-darkPurple/70 p-4 rounded-lg flex-1 w-full">
-              <h2 className="text-xl font-bold text-white mb-4">Enemy</h2>
-              <HealthBar currentHealth={enemyHealth} maxHealth={enemy.health} name={enemy.name} />
+            <div className="bg-dbs-darkPurple/70 p-4 rounded-lg w-full">
+              <HealthBar 
+                currentHealth={enemyHealth} 
+                maxHealth={enemy.health} 
+                name={enemy.name} 
+                isPlayer={false} 
+              />
             </div>
           </div>
           
-          <div className="flex justify-center">
+          <div className="grid grid-cols-2 gap-4">
             <Button
               onClick={performAttack}
               disabled={!isPlayerTurn || isGameOver}
-              className="bg-dbs-blue hover:bg-dbs-blue/80 text-white py-3 px-8 text-lg font-bold disabled:bg-gray-600"
+              className="bg-dbs-blue hover:bg-dbs-blue/80 text-white py-3 px-4 text-lg font-bold disabled:bg-gray-600 flex items-center justify-center gap-2"
             >
-              Attack
+              <Sword className="w-5 h-5" />
+              Atacar
+            </Button>
+            
+            <Button
+              onClick={defendAction}
+              disabled={!isPlayerTurn || isGameOver}
+              className="bg-dbs-darkPurple hover:bg-dbs-darkPurple/80 text-white py-3 px-4 text-lg font-bold disabled:bg-gray-600 flex items-center justify-center gap-2"
+            >
+              <Shield className="w-5 h-5" />
+              Defender
             </Button>
           </div>
         </div>
         
-        {/* Battle Log */}
+        {/* Registro de batalla */}
         <div className="bg-dbs-darkPurple/50 p-4 rounded-lg h-80 overflow-y-auto">
-          <h2 className="text-xl font-bold text-white mb-2 sticky top-0 bg-dbs-darkPurple py-2">Battle Log</h2>
+          <h2 className="text-xl font-bold text-white mb-2 sticky top-0 bg-dbs-darkPurple py-2">Registro de Batalla</h2>
           <div className="space-y-2">
             {battleLog.map((log, index) => (
               <div key={index} className="text-dbs-lightPurple border-l-2 border-dbs-vividPurple pl-2 py-1">

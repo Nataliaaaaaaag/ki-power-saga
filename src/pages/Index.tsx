@@ -24,8 +24,8 @@ const Index = () => {
     setSelectedCharacter(character);
     setGameState(GameState.WORLD_SELECT);
     toast({
-      title: "Character Selected",
-      description: `You've chosen ${character.name}!`,
+      title: "Personaje Seleccionado",
+      description: `¡Has elegido a ${character.name}!`,
     });
   };
 
@@ -39,7 +39,7 @@ const Index = () => {
       const newCompletedWorlds = [...completedWorlds, currentWorld.id];
       setCompletedWorlds(newCompletedWorlds);
       
-      // Check if all worlds are completed
+      // Verificar si todos los mundos están completados
       if (newCompletedWorlds.length === worlds.length) {
         setGameState(GameState.VICTORY);
       } else {
@@ -68,12 +68,12 @@ const Index = () => {
         return (
           <div className="p-6 max-w-6xl mx-auto">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">Select a World</h2>
-              <p className="text-dbs-lightPurple">Choose a world to battle in</p>
+              <h2 className="text-3xl font-bold text-white mb-2">Selecciona un Mundo</h2>
+              <p className="text-dbs-lightPurple">Elige un mundo para combatir</p>
               
               {selectedCharacter && (
                 <div className="mt-4 inline-flex items-center bg-dbs-darkPurple/70 px-4 py-2 rounded-lg">
-                  <span className="text-dbs-purple font-semibold mr-2">Selected Character:</span> 
+                  <span className="text-dbs-purple font-semibold mr-2">Personaje Seleccionado:</span> 
                   <span className="text-white">{selectedCharacter.name}</span>
                 </div>
               )}
@@ -98,7 +98,7 @@ const Index = () => {
                     <div className="relative">
                       <div className={`ki-aura ${isCompleted ? 'opacity-30 bg-green-500' : ''}`}></div>
                       <div className="bg-gradient-to-b from-dbs-darkPurple/50 to-black/50 aspect-video rounded-md flex items-center justify-center mb-4">
-                        {/* Replace with actual world image when available */}
+                        {/* Reemplazar con imagen real cuando esté disponible */}
                         <div className="text-5xl font-bold text-dbs-lightPurple">{world.name.charAt(0)}</div>
                       </div>
                     </div>
@@ -107,7 +107,7 @@ const Index = () => {
                       <div className="absolute inset-0 bg-black/60 flex items-center justify-center rounded-lg">
                         <div className="text-white text-center">
                           <span className="text-3xl">🔒</span>
-                          <p>Complete previous world</p>
+                          <p>Completa el mundo anterior</p>
                         </div>
                       </div>
                     )}
@@ -122,7 +122,7 @@ const Index = () => {
                     <p className="text-dbs-lightPurple text-sm mb-3">{world.description}</p>
                     
                     <div className="flex items-center mb-2">
-                      <span className="text-dbs-purple mr-2">Difficulty:</span>
+                      <span className="text-dbs-purple mr-2">Dificultad:</span>
                       <span className="text-yellow-400">
                         {Array(world.difficulty).fill('★').join('')}
                       </span>
@@ -153,13 +153,13 @@ const Index = () => {
         return (
           <div className="min-h-screen flex items-center justify-center bg-dbs-darkPurple">
             <div className="text-center p-8 bg-black/30 rounded-lg max-w-md">
-              <h2 className="text-4xl font-bold text-dbs-red mb-4">Game Over</h2>
-              <p className="text-white mb-6">You were defeated! Train harder and try again!</p>
+              <h2 className="text-4xl font-bold text-dbs-red mb-4">Fin del Juego</h2>
+              <p className="text-white mb-6">¡Has sido derrotado! ¡Entrena más duro e inténtalo de nuevo!</p>
               <button 
                 onClick={handleRestart} 
                 className="bg-dbs-vividPurple hover:bg-dbs-purple text-white px-8 py-3 rounded-lg font-bold"
               >
-                Try Again
+                Intentar de Nuevo
               </button>
             </div>
           </div>
@@ -169,15 +169,15 @@ const Index = () => {
         return (
           <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-dbs-purple to-dbs-vividPurple">
             <div className="text-center p-8 bg-black/30 backdrop-blur-sm rounded-lg max-w-md">
-              <h2 className="text-4xl font-bold text-yellow-400 mb-4">Victory!</h2>
+              <h2 className="text-4xl font-bold text-yellow-400 mb-4">¡Victoria!</h2>
               <p className="text-white mb-6">
-                Congratulations! You have completed all worlds and proven yourself to be the strongest warrior!
+                ¡Felicidades! Has completado todos los mundos y has demostrado ser el guerrero más fuerte.
               </p>
               <button 
                 onClick={handleRestart} 
                 className="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-3 rounded-lg font-bold"
               >
-                Play Again
+                Jugar de Nuevo
               </button>
             </div>
           </div>
@@ -190,7 +190,7 @@ const Index = () => {
       {gameState !== GameState.BATTLE && (
         <header className="w-full py-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-dbs-purple via-dbs-vividPurple to-dbs-orange">
-            Dragon Ball Worlds
+            Dragon Ball Mundos
           </h1>
         </header>
       )}

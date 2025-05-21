@@ -4,6 +4,7 @@ import { World } from '../data/worlds';
 import { Character, enemies } from '../data/characters';
 import BattleArena from './BattleArena';
 import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
 
 interface GameWorldProps {
   world: World;
@@ -30,14 +31,15 @@ const GameWorld: React.FC<GameWorldProps> = ({
       <div className="flex justify-between items-center mb-6">
         <Button
           onClick={onBackToWorldSelect}
-          className="bg-dbs-darkPurple hover:bg-dbs-darkPurple/80 text-white"
+          className="bg-dbs-darkPurple hover:bg-dbs-darkPurple/80 text-white flex items-center gap-2"
         >
-          Back to Worlds
+          <ArrowLeft className="w-4 h-4" />
+          Volver a Mundos
         </Button>
         
         <div className="text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white drop-shadow-md">{world.name}</h2>
-          <p className="text-white/80 drop-shadow-md">Difficulty: {Array(world.difficulty).fill('★').join('')}</p>
+          <p className="text-white/80 drop-shadow-md">Dificultad: {Array(world.difficulty).fill('★').join('')}</p>
         </div>
         
         <div className="invisible">

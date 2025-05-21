@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Character, characters } from '../data/characters';
 import { Button } from '@/components/ui/button';
+import { Star } from 'lucide-react';
 
 interface CharacterSelectProps {
   onSelect: (character: Character) => void;
@@ -23,8 +24,8 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ onSelect }) => {
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white mb-2">Select Your Character</h2>
-        <p className="text-dbs-lightPurple">Choose a warrior to battle through the worlds</p>
+        <h2 className="text-3xl font-bold text-white mb-2">Selecciona tu Personaje</h2>
+        <p className="text-dbs-lightPurple">Elige un guerrero para combatir a través de los mundos</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -40,7 +41,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ onSelect }) => {
             <div className="relative">
               <div className="ki-aura"></div>
               <div className="bg-gradient-to-b from-dbs-purple/10 to-dbs-vividPurple/20 aspect-square rounded-md flex items-center justify-center mb-4">
-                {/* Replace with actual character image when available */}
+                {/* Reemplazar con imagen real cuando esté disponible */}
                 <div className="text-5xl font-bold text-dbs-vividPurple">{character.name.charAt(0)}</div>
               </div>
             </div>
@@ -49,13 +50,13 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ onSelect }) => {
             
             <div className="space-y-2 mb-4">
               <div>
-                <span className="text-dbs-lightPurple text-sm">Power: </span>
+                <span className="text-dbs-lightPurple text-sm">Poder: </span>
                 <div className="w-full h-2 bg-gray-700 rounded-full mt-1">
                   <div className="h-full bg-dbs-orange rounded-full" style={{ width: `${character.power}%` }}></div>
                 </div>
               </div>
               <div>
-                <span className="text-dbs-lightPurple text-sm">Speed: </span>
+                <span className="text-dbs-lightPurple text-sm">Velocidad: </span>
                 <div className="w-full h-2 bg-gray-700 rounded-full mt-1">
                   <div className="h-full bg-dbs-blue rounded-full" style={{ width: `${character.speed}%` }}></div>
                 </div>
@@ -63,7 +64,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ onSelect }) => {
             </div>
 
             <div className="bg-dbs-darkPurple/50 p-2 rounded">
-              <span className="text-dbs-purple font-semibold">Special: </span>
+              <span className="text-dbs-purple font-semibold">Especial: </span>
               <span className="text-white">{character.specialAttack.name}</span>
             </div>
           </div>
@@ -76,7 +77,7 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ onSelect }) => {
           disabled={!selectedCharacter}
           className="bg-dbs-vividPurple hover:bg-dbs-purple text-white px-8 py-4 text-lg font-bold disabled:bg-gray-600"
         >
-          Confirm Selection
+          Confirmar Selección
         </Button>
       </div>
     </div>

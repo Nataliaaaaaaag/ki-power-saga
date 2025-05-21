@@ -18,28 +18,28 @@ export interface SpecialAttack {
 export const characters: Character[] = [
   {
     id: 1,
-    name: "Goku (Ultra Instinct)",
-    imageSrc: "/goku-ui.png", // We'll replace these with actual images later
+    name: "Goku (Ultra Instinto)",
+    imageSrc: "/goku-ui.png", // Reemplazaremos esto con imágenes reales más tarde
     health: 100,
     power: 95,
     speed: 90,
     specialAttack: {
-      name: "Autonomous Ultra Instinct",
+      name: "Ultra Instinto Autónomo",
       damage: 50,
-      description: "Goku dodges attacks automatically and counters with devastating blows"
+      description: "Goku esquiva ataques automáticamente y contraataca con golpes devastadores"
     }
   },
   {
     id: 2,
-    name: "Vegeta (Blue Evolution)",
+    name: "Vegeta (Evolución Blue)",
     imageSrc: "/vegeta-blue.png",
     health: 100,
     power: 90,
     speed: 85,
     specialAttack: {
-      name: "Final Flash",
+      name: "Resplandor Final",
       damage: 45,
-      description: "A powerful energy blast that deals massive damage"
+      description: "Una poderosa explosión de energía que causa daño masivo"
     }
   },
   {
@@ -50,9 +50,9 @@ export const characters: Character[] = [
     power: 100,
     speed: 80,
     specialAttack: {
-      name: "Power Impact",
+      name: "Impacto de Poder",
       damage: 55,
-      description: "A powerful ki blast that pursues the target"
+      description: "Un poderoso ataque de ki que persigue al objetivo"
     }
   },
   {
@@ -63,9 +63,9 @@ export const characters: Character[] = [
     power: 85,
     speed: 95,
     specialAttack: {
-      name: "Time Skip",
+      name: "Salto Temporal",
       damage: 40,
-      description: "Freezes time briefly to deliver a series of devastating blows"
+      description: "Congela el tiempo brevemente para asestar una serie de golpes devastadores"
     }
   },
   {
@@ -76,26 +76,26 @@ export const characters: Character[] = [
     power: 88,
     speed: 87,
     specialAttack: {
-      name: "Divine Lasso",
+      name: "Lazo Divino",
       damage: 42,
-      description: "Creates blades of energy that impale the opponent"
+      description: "Crea hojas de energía que atraviesan al oponente"
     }
   }
 ];
 
-// For enemies in each world
+// Para enemigos en cada mundo
 export const enemies: Character[] = [
   {
     id: 101,
-    name: "Frieza",
+    name: "Freezer",
     imageSrc: "/frieza.png",
     health: 80,
     power: 75,
     speed: 70,
     specialAttack: {
-      name: "Death Beam",
+      name: "Rayo Mortal",
       damage: 30,
-      description: "A piercing beam of energy"
+      description: "Un rayo de energía penetrante"
     }
   },
   {
@@ -106,9 +106,9 @@ export const enemies: Character[] = [
     power: 80,
     speed: 75,
     specialAttack: {
-      name: "Perfect Kamehameha",
+      name: "Kamehameha Perfecto",
       damage: 35,
-      description: "A perfect version of the Kamehameha wave"
+      description: "Una versión perfecta de la onda Kamehameha"
     }
   },
   {
@@ -121,7 +121,7 @@ export const enemies: Character[] = [
     specialAttack: {
       name: "Hakai",
       damage: 45,
-      description: "Energy of destruction that can erase existence"
+      description: "Energía de destrucción que puede borrar la existencia"
     }
   },
   {
@@ -132,9 +132,9 @@ export const enemies: Character[] = [
     power: 85,
     speed: 80,
     specialAttack: {
-      name: "Blades of Judgment",
+      name: "Hojas del Juicio",
       damage: 40,
-      description: "Creates multiple energy blades that rain down on opponents"
+      description: "Crea múltiples hojas de energía que llueven sobre los oponentes"
     }
   },
   {
@@ -145,9 +145,9 @@ export const enemies: Character[] = [
     power: 95,
     speed: 75,
     specialAttack: {
-      name: "Gigantic Roar",
+      name: "Rugido Gigantesco",
       damage: 50,
-      description: "A massive energy wave fueled by rage"
+      description: "Una onda de energía masiva alimentada por la ira"
     }
   }
 ];

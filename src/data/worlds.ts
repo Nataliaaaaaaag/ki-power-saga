@@ -12,17 +12,17 @@ export interface World {
 export const worlds: World[] = [
   {
     id: 1,
-    name: "Earth",
-    description: "The home planet of the Z fighters. A beautiful world with diverse landscapes.",
+    name: "Tierra",
+    description: "El planeta natal de los Guerreros Z. Un hermoso mundo con diversos paisajes.",
     background: "linear-gradient(to bottom, #33C3F0, #5ecce0)",
     difficulty: 1,
-    enemyId: 101, // Frieza
+    enemyId: 101, // Freezer
     imageSrc: "/earth-world.png"
   },
   {
     id: 2,
     name: "Namek",
-    description: "A planet with green skies and blue grass. Once home to the Namekians.",
+    description: "Un planeta con cielos verdes y hierba azul. Hogar de los Namekianos.",
     background: "linear-gradient(to bottom, #5ecce0, #44aa44)",
     difficulty: 2,
     enemyId: 102, // Cell
@@ -30,8 +30,8 @@ export const worlds: World[] = [
   },
   {
     id: 3,
-    name: "Beerus's Planet",
-    description: "The home of the God of Destruction. A small world with unusual gravity.",
+    name: "Planeta de Beerus",
+    description: "El hogar del Dios de la Destrucción. Un pequeño mundo con gravedad inusual.",
     background: "linear-gradient(to bottom, #9b87f5, #D6BCFA)",
     difficulty: 3,
     enemyId: 103, // Beerus
@@ -39,8 +39,8 @@ export const worlds: World[] = [
   },
   {
     id: 4,
-    name: "Future Earth",
-    description: "A dystopian future Earth devastated by powerful enemies.",
+    name: "Tierra del Futuro",
+    description: "Una Tierra distópica del futuro devastada por poderosos enemigos.",
     background: "linear-gradient(to bottom, #666666, #333333)",
     difficulty: 4,
     enemyId: 104, // Zamasu
@@ -48,8 +48,8 @@ export const worlds: World[] = [
   },
   {
     id: 5,
-    name: "Tournament of Power Arena",
-    description: "A massive arena created by the Grand Priest for the multiverse tournament.",
+    name: "Arena del Torneo del Poder",
+    description: "Una arena masiva creada por el Gran Sacerdote para el torneo multiversal.",
     background: "linear-gradient(to bottom, #1A1F2C, #444444)",
     difficulty: 5,
     enemyId: 105, // Broly
