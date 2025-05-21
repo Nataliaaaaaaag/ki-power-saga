@@ -13,7 +13,7 @@ const PowerMeter: React.FC<PowerMeterProps> = ({ power, maxPower, onSpecialAttac
 
   return (
     <div className="w-full">
-      <div className="flex justify-between mb-1">
+      <div className="flex justify-between mb-1 items-center">
         <span className="font-bold text-sm">Energía Ki</span>
         <span className="text-sm font-semibold">{power}/{maxPower}</span>
       </div>

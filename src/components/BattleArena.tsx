@@ -24,6 +24,8 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   const [isSpecialReady, setIsSpecialReady] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [lastMove, setLastMove] = useState<'attack' | 'defend' | 'special' | ''>('');
+  const [playerAnimating, setPlayerAnimating] = useState<'attack' | 'defend' | 'special' | ''>('');
+  const [enemyAnimating, setEnemyAnimating] = useState<'attack' | 'defend' | 'special' | ''>('');
   
   const maxPower = 100;
   const powerGainPerTurn = 20;
@@ -72,6 +74,10 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   const performAttack = () => {
     if (isGameOver) return;
     
+    // Animación de ataque
+    setPlayerAnimating('attack');
+    setTimeout(() => setPlayerAnimating(''), 600);
+    
     // Calcular daño basado en el poder del jugador
     const damage = Math.floor(5 + (Math.random() * 10));
     const newEnemyHealth = Math.max(0, enemyHealth - damage);
@@ -94,6 +100,10 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   const defendAction = () => {
     if (isGameOver) return;
 
+    // Animación de defensa
+    setPlayerAnimating('defend');
+    setTimeout(() => setPlayerAnimating(''), 600);
+
     // Ganar poder adicional al defender
     const defensePower = Math.floor(powerGainPerTurn * 1.5);
     const newPower = Math.min(maxPower, playerPower + defensePower);
@@ -112,6 +122,10 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   const enemyAttack = () => {
     if (isGameOver) return;
     
+    // Animación de ataque del enemigo
+    setEnemyAnimating('attack');
+    setTimeout(() => setEnemyAnimating(''), 600);
+    
     // Calcular daño enemigo basado en dificultad
     let damage = Math.floor((5 + (Math.random() * 10)) * difficultyMultiplier);
     
@@ -128,14 +142,19 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
     
     // Probabilidad de que el enemigo use ataque especial
     if (Math.random() < 0.1 * difficulty) {
-      const specialDamage = Math.floor(enemy.specialAttack.damage * difficultyMultiplier);
-      const newHealthAfterSpecial = Math.max(0, newPlayerHealth - specialDamage);
-      
-      setPlayerHealth(newHealthAfterSpecial);
-      setBattleLog(prev => [
-        ...prev, 
-        `¡${enemy.name} ha usado ${enemy.specialAttack.name} causando ${specialDamage} de daño!`
-      ]);
+      setTimeout(() => {
+        setEnemyAnimating('special');
+        setTimeout(() => setEnemyAnimating(''), 800);
+        
+        const specialDamage = Math.floor(enemy.specialAttack.damage * difficultyMultiplier);
+        const newHealthAfterSpecial = Math.max(0, newPlayerHealth - specialDamage);
+        
+        setPlayerHealth(newHealthAfterSpecial);
+        setBattleLog(prev => [
+          ...prev, 
+          `¡${enemy.name} ha usado ${enemy.specialAttack.name} causando ${specialDamage} de daño!`
+        ]);
+      }, 800);
     }
     
     setLastMove('');
@@ -144,6 +163,10 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   
   const useSpecialAttack = () => {
     if (!isSpecialReady || isGameOver) return;
+    
+    // Animación de ataque especial
+    setPlayerAnimating('special');
+    setTimeout(() => setPlayerAnimating(''), 800);
     
     const damage = player.specialAttack.damage;
     const newEnemyHealth = Math.max(0, enemyHealth - damage);
@@ -163,7 +186,7 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   return (
     <div className="w-full p-4 md:p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Estadísticas de personajes y controles */}
+        {/* Estadísticas de personajes, imágenes y controles */}
         <div className="space-y-6">
           <div className="flex flex-col gap-4">
             <div className="bg-dbs-darkPurple/70 p-4 rounded-lg w-full">
@@ -191,6 +214,84 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
                 name={enemy.name} 
                 isPlayer={false} 
               />
+            </div>
+          </div>
+          
+          {/* Arena de combate con personajes */}
+          <div className="relative w-full bg-gradient-to-b from-dbs-darkPurple/30 to-black/60 rounded-lg p-4 h-64 overflow-hidden">
+            {/* Área del jugador */}
+            <div className="absolute left-4 bottom-0 w-32 h-48">
+              <div className={`character-container ${playerAnimating ? 'animate-' + playerAnimating : ''}`}>
+                <div className="relative w-28 h-40">
+                  {playerAnimating === 'special' && (
+                    <div className="absolute inset-0 bg-dbs-vividPurple/30 animate-pulse rounded-full"></div>
+                  )}
+                  {player.imageSrc ? (
+                    <img 
+                      src={player.imageSrc} 
+                      alt={player.name} 
+                      className="w-full h-full object-contain" 
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-dbs-purple/50 rounded-full flex items-center justify-center">
+                      <span className="text-3xl font-bold">{player.name.charAt(0)}</span>
+                    </div>
+                  )}
+                  
+                  {playerAnimating === 'defend' && (
+                    <div className="absolute inset-0 border-4 border-dbs-blue rounded-full animate-pulse"></div>
+                  )}
+                </div>
+              </div>
+            </div>
+            
+            {/* Área del enemigo */}
+            <div className="absolute right-4 bottom-0 w-32 h-48">
+              <div className={`character-container ${enemyAnimating ? 'animate-' + enemyAnimating : ''}`}>
+                <div className="relative w-28 h-40">
+                  {enemyAnimating === 'special' && (
+                    <div className="absolute inset-0 bg-dbs-red/30 animate-pulse rounded-full"></div>
+                  )}
+                  {enemy.imageSrc ? (
+                    <img 
+                      src={enemy.imageSrc} 
+                      alt={enemy.name} 
+                      className="w-full h-full object-contain" 
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-dbs-red/50 rounded-full flex items-center justify-center">
+                      <span className="text-3xl font-bold">{enemy.name.charAt(0)}</span>
+                    </div>
+                  )}
+                  
+                  {enemyAnimating === 'defend' && (
+                    <div className="absolute inset-0 border-4 border-dbs-purple rounded-full animate-pulse"></div>
+                  )}
+                </div>
+              </div>
+            </div>
+            
+            {/* Efectos de combate */}
+            {playerAnimating === 'attack' && (
+              <div className="absolute left-1/3 top-1/2 transform -translate-y-1/2 w-6 h-6 bg-dbs-blue rounded-full animate-ping"></div>
+            )}
+            
+            {enemyAnimating === 'attack' && (
+              <div className="absolute right-1/3 top-1/2 transform -translate-y-1/2 w-6 h-6 bg-dbs-red rounded-full animate-ping"></div>
+            )}
+            
+            {playerAnimating === 'special' && (
+              <div className="absolute left-1/4 w-1/2 h-4 bg-dbs-vividPurple rounded-full animate-pulse"></div>
+            )}
+            
+            {enemyAnimating === 'special' && (
+              <div className="absolute right-1/4 w-1/2 h-4 bg-dbs-red rounded-full animate-pulse"></div>
+            )}
+            
+            {/* Indicador de turno */}
+            <div className={`absolute bottom-2 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full text-xs font-bold
+              ${isPlayerTurn ? 'bg-dbs-blue' : 'bg-dbs-red'}`}>
+              {isPlayerTurn ? 'Tu turno' : 'Turno enemigo'}
             </div>
           </div>
           

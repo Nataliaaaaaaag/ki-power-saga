@@ -21,7 +21,7 @@ const HealthBar: React.FC<HealthBarProps> = ({ currentHealth, maxHealth, name, i
 
   return (
     <div className="w-full">
-      <div className={`flex ${isPlayer ? 'justify-start' : 'justify-end'} mb-1`}>
+      <div className={`flex ${isPlayer ? 'justify-start' : 'justify-end'} mb-1 items-center`}>
         <span className={`font-bold text-sm ${isPlayer ? 'text-dbs-blue' : 'text-dbs-red'}`}>{name}</span>
         <span className="text-sm font-semibold ml-2">{currentHealth}/{maxHealth}</span>
       </div>
