@@ -217,79 +217,69 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
             </div>
           </div>
           
-          {/* Arena de combate con personajes */}
-          <div className="relative w-full bg-gradient-to-b from-dbs-darkPurple/30 to-black/60 rounded-lg p-4 h-64 overflow-hidden">
-            {/* Área del jugador */}
-            <div className="absolute left-4 bottom-0 w-32 h-48">
-              <div className={`character-container ${playerAnimating ? 'animate-' + playerAnimating : ''}`}>
-                <div className="relative w-28 h-40">
-                  {playerAnimating === 'special' && (
-                    <div className="absolute inset-0 bg-dbs-vividPurple/30 animate-pulse rounded-full"></div>
-                  )}
-                  {player.imageSrc ? (
-                    <img 
-                      src={player.imageSrc} 
-                      alt={player.name} 
-                      className="w-full h-full object-contain" 
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-dbs-purple/50 rounded-full flex items-center justify-center">
-                      <span className="text-3xl font-bold">{player.name.charAt(0)}</span>
-                    </div>
-                  )}
-                  
-                  {playerAnimating === 'defend' && (
-                    <div className="absolute inset-0 border-4 border-dbs-blue rounded-full animate-pulse"></div>
-                  )}
-                </div>
+          {/* Arena de combate con personajes mejorada */}
+          <div className="battle-arena relative w-full rounded-lg p-4 h-64 overflow-hidden">
+            {/* Jugador */}
+            <div className={`player-character ${playerAnimating ? `animate-${playerAnimating}` : ''}`}>
+              <div className="battle-character">
+                {playerAnimating === 'special' && (
+                  <div className="ki-effect player-ki absolute inset-0 w-full h-full animate-pulse"></div>
+                )}
+                
+                <img 
+                  src={player.imageSrc} 
+                  alt={player.name}
+                  className="character-image" 
+                />
+                
+                <div className="character-shadow"></div>
+                
+                {playerAnimating === 'defend' && (
+                  <div className="absolute inset-0 border-4 border-dbs-blue rounded-full animate-pulse"></div>
+                )}
               </div>
             </div>
             
-            {/* Área del enemigo */}
-            <div className="absolute right-4 bottom-0 w-32 h-48">
-              <div className={`character-container ${enemyAnimating ? 'animate-' + enemyAnimating : ''}`}>
-                <div className="relative w-28 h-40">
-                  {enemyAnimating === 'special' && (
-                    <div className="absolute inset-0 bg-dbs-red/30 animate-pulse rounded-full"></div>
-                  )}
-                  {enemy.imageSrc ? (
-                    <img 
-                      src={enemy.imageSrc} 
-                      alt={enemy.name} 
-                      className="w-full h-full object-contain" 
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-dbs-red/50 rounded-full flex items-center justify-center">
-                      <span className="text-3xl font-bold">{enemy.name.charAt(0)}</span>
-                    </div>
-                  )}
-                  
-                  {enemyAnimating === 'defend' && (
-                    <div className="absolute inset-0 border-4 border-dbs-purple rounded-full animate-pulse"></div>
-                  )}
-                </div>
+            {/* Enemigo */}
+            <div className={`enemy-character ${enemyAnimating ? `animate-${enemyAnimating}` : ''}`}>
+              <div className="battle-character">
+                {enemyAnimating === 'special' && (
+                  <div className="ki-effect enemy-ki absolute inset-0 w-full h-full animate-pulse"></div>
+                )}
+                
+                <img 
+                  src={enemy.imageSrc} 
+                  alt={enemy.name}
+                  className="character-image" 
+                />
+                
+                <div className="character-shadow"></div>
+                
+                {enemyAnimating === 'defend' && (
+                  <div className="absolute inset-0 border-4 border-dbs-red rounded-full animate-pulse"></div>
+                )}
               </div>
             </div>
             
             {/* Efectos de combate */}
             {playerAnimating === 'attack' && (
-              <div className="absolute left-1/3 top-1/2 transform -translate-y-1/2 w-6 h-6 bg-dbs-blue rounded-full animate-ping"></div>
+              <div className="absolute left-1/3 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-dbs-blue rounded-full animate-ping"></div>
             )}
             
             {enemyAnimating === 'attack' && (
-              <div className="absolute right-1/3 top-1/2 transform -translate-y-1/2 w-6 h-6 bg-dbs-red rounded-full animate-ping"></div>
+              <div className="absolute right-1/3 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-dbs-red rounded-full animate-ping"></div>
             )}
             
             {playerAnimating === 'special' && (
-              <div className="absolute left-1/4 w-1/2 h-4 bg-dbs-vividPurple rounded-full animate-pulse"></div>
+              <div className="absolute left-0 top-1/2 w-1/2 h-6 bg-dbs-vividPurple transform -translate-y-1/2 rounded-full animate-pulse"></div>
             )}
             
             {enemyAnimating === 'special' && (
-              <div className="absolute right-1/4 w-1/2 h-4 bg-dbs-red rounded-full animate-pulse"></div>
+              <div className="absolute right-0 top-1/2 w-1/2 h-6 bg-dbs-red transform -translate-y-1/2 rounded-full animate-pulse"></div>
             )}
             
             {/* Indicador de turno */}
-            <div className={`absolute bottom-2 left-1/2 transform -translate-x-1/2 px-3 py-1 rounded-full text-xs font-bold
+            <div className={`turn-indicator
               ${isPlayerTurn ? 'bg-dbs-blue' : 'bg-dbs-red'}`}>
               {isPlayerTurn ? 'Tu turno' : 'Turno enemigo'}
             </div>
