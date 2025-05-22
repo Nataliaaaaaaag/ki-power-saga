@@ -144,11 +144,11 @@
   width: 100%;
   height: 100%;
   display: flex;
-  justify-center: center;
+  justify-content: center;
   align-items: center;
 }
 
-/* Nuevos estilos para mejorar la visualización de los personajes */
+/* Mejora en los estilos para la visualización de los personajes */
 .battle-character {
   width: 120px;
   height: 160px;
@@ -183,14 +183,14 @@
 
 .player-character {
   position: absolute;
-  left: 15%;
+  left: 10%;
   bottom: 20px;
   transform-origin: bottom center;
 }
 
 .enemy-character {
   position: absolute;
-  right: 15%;
+  right: 10%;
   bottom: 20px;
   transform-origin: bottom center;
 }
@@ -199,6 +199,7 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
 }
 
 .character-shadow {
@@ -238,4 +239,45 @@
   z-index: 20;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .player-character, .enemy-character {
+    transform: scale(0.8);
+  }
+  
+  .player-character {
+    left: 5%;
+  }
+  
+  .enemy-character {
+    right: 5%;
+  }
+  
+  .turn-indicator {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .battle-arena {
+    height: 250px;
+  }
+  
+  .player-character, .enemy-character {
+    transform: scale(0.7);
+  }
+}
+
+@media (min-width: 1024px) {
+  .player-character, .enemy-character {
+    transform: scale(1.1);
+  }
+  
+  .battle-arena {
+    height: 350px;
+  }
 }

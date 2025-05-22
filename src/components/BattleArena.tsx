@@ -184,10 +184,10 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   };
 
   return (
-    <div className="w-full p-4 md:p-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className="w-full p-2 md:p-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
         {/* Estadísticas de personajes, imágenes y controles */}
-        <div className="space-y-6">
+        <div className="space-y-4">
           <div className="flex flex-col gap-4">
             <div className="bg-dbs-darkPurple/70 p-4 rounded-lg w-full">
               <HealthBar 
@@ -197,7 +197,7 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
                 isPlayer={true} 
               />
               
-              <div className="mt-6">
+              <div className="mt-4">
                 <PowerMeter 
                   power={playerPower} 
                   maxPower={maxPower} 
@@ -218,7 +218,7 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
           </div>
           
           {/* Arena de combate con personajes mejorada */}
-          <div className="battle-arena relative w-full rounded-lg p-4 h-64 overflow-hidden">
+          <div className="battle-arena relative w-full rounded-lg p-2 h-64 md:h-80 overflow-hidden">
             {/* Jugador */}
             <div className={`player-character ${playerAnimating ? `animate-${playerAnimating}` : ''}`}>
               <div className="battle-character">
@@ -229,7 +229,7 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
                 <img 
                   src={player.imageSrc} 
                   alt={player.name}
-                  className="character-image" 
+                  className="character-image z-10 object-contain max-h-32 md:max-h-48" 
                 />
                 
                 <div className="character-shadow"></div>
@@ -250,7 +250,7 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
                 <img 
                   src={enemy.imageSrc} 
                   alt={enemy.name}
-                  className="character-image" 
+                  className="character-image z-10 object-contain max-h-32 md:max-h-48" 
                 />
                 
                 <div className="character-shadow"></div>
@@ -289,25 +289,25 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
             <Button
               onClick={performAttack}
               disabled={!isPlayerTurn || isGameOver}
-              className="bg-dbs-blue hover:bg-dbs-blue/80 text-white py-3 px-4 text-lg font-bold disabled:bg-gray-600 flex items-center justify-center gap-2"
+              className="bg-dbs-blue hover:bg-dbs-blue/80 text-white py-2 md:py-3 px-3 md:px-4 text-base md:text-lg font-bold disabled:bg-gray-600 flex items-center justify-center gap-2"
             >
-              <Sword className="w-5 h-5" />
+              <Sword className="w-4 h-4 md:w-5 md:h-5" />
               Atacar
             </Button>
             
             <Button
               onClick={defendAction}
               disabled={!isPlayerTurn || isGameOver}
-              className="bg-dbs-darkPurple hover:bg-dbs-darkPurple/80 text-white py-3 px-4 text-lg font-bold disabled:bg-gray-600 flex items-center justify-center gap-2"
+              className="bg-dbs-darkPurple hover:bg-dbs-darkPurple/80 text-white py-2 md:py-3 px-3 md:px-4 text-base md:text-lg font-bold disabled:bg-gray-600 flex items-center justify-center gap-2"
             >
-              <Shield className="w-5 h-5" />
+              <Shield className="w-4 h-4 md:w-5 md:h-5" />
               Defender
             </Button>
           </div>
         </div>
         
         {/* Registro de batalla */}
-        <div className="bg-dbs-darkPurple/50 p-4 rounded-lg h-80 overflow-y-auto">
+        <div className="bg-dbs-darkPurple/50 p-4 rounded-lg h-64 md:h-80 overflow-y-auto">
           <h2 className="text-xl font-bold text-white mb-2 sticky top-0 bg-dbs-darkPurple py-2">Registro de Batalla</h2>
           <div className="space-y-2">
             {battleLog.map((log, index) => (
