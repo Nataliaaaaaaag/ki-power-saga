@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -148,10 +147,10 @@
   align-items: center;
 }
 
-/* Mejora en los estilos para la visualización de los personajes */
+/* Estilos mejorados para la visualización de los personajes en batalla */
 .battle-character {
-  width: 120px;
-  height: 160px;
+  width: 140px;
+  height: 180px;
   position: relative;
   display: flex;
   align-items: center;
@@ -159,17 +158,19 @@
 }
 
 .battle-character img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
   z-index: 10;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .battle-arena {
   background: linear-gradient(to bottom, #1a1f2c, #0f1319);
   position: relative;
   overflow: hidden;
-  height: 300px;
+  height: 320px;
 }
 
 .battle-arena::before {
@@ -183,35 +184,37 @@
 
 .player-character {
   position: absolute;
-  left: 10%;
-  bottom: 20px;
+  left: 8%;
+  bottom: 30px;
   transform-origin: bottom center;
 }
 
 .enemy-character {
   position: absolute;
-  right: 10%;
-  bottom: 20px;
+  right: 8%;
+  bottom: 30px;
   transform-origin: bottom center;
+  transform: scaleX(-1); /* Voltear el enemigo para que mire hacia el jugador */
 }
 
 .character-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+  object-fit: cover;
+  border-radius: 8px;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
 }
 
 .character-shadow {
   position: absolute;
-  bottom: -10px;
+  bottom: -15px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px;
-  height: 20px;
-  background: rgba(0, 0, 0, 0.3);
+  width: 100px;
+  height: 25px;
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 50%;
-  filter: blur(3px);
+  filter: blur(4px);
 }
 
 .ki-effect {
@@ -230,20 +233,25 @@
 
 .turn-indicator {
   position: absolute;
-  bottom: 10px;
+  bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 10px 20px;
+  border-radius: 25px;
   font-weight: bold;
   z-index: 20;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
-  font-size: 14px;
+  font-size: 16px;
 }
 
-/* Ajustes responsivos */
+/* Ajustes responsivos mejorados */
 @media (max-width: 768px) {
+  .battle-character {
+    width: 110px;
+    height: 140px;
+  }
+  
   .player-character, .enemy-character {
     transform: scale(0.8);
   }
@@ -254,11 +262,16 @@
   
   .enemy-character {
     right: 5%;
+    transform: scale(0.8) scaleX(-1);
   }
   
   .turn-indicator {
-    font-size: 12px;
-    padding: 6px 12px;
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  
+  .battle-arena {
+    height: 280px;
   }
 }
 
@@ -267,17 +280,56 @@
     height: 250px;
   }
   
+  .battle-character {
+    width: 90px;
+    height: 120px;
+  }
+  
   .player-character, .enemy-character {
     transform: scale(0.7);
+  }
+  
+  .enemy-character {
+    transform: scale(0.7) scaleX(-1);
+  }
+  
+  .turn-indicator {
+    font-size: 12px;
+    padding: 6px 12px;
   }
 }
 
 @media (min-width: 1024px) {
+  .battle-character {
+    width: 160px;
+    height: 200px;
+  }
+  
   .player-character, .enemy-character {
     transform: scale(1.1);
   }
   
+  .enemy-character {
+    transform: scale(1.1) scaleX(-1);
+  }
+  
   .battle-arena {
-    height: 350px;
+    height: 380px;
+  }
+  
+  .turn-indicator {
+    font-size: 18px;
+    padding: 12px 24px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .battle-character {
+    width: 180px;
+    height: 220px;
+  }
+  
+  .battle-arena {
+    height: 400px;
   }
 }
