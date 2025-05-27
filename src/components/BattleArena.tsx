@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { Character } from '../data/characters';
 import HealthBar from './HealthBar';
 import PowerMeter from './PowerMeter';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
-import { Sword, Shield, Zap } from 'lucide-react';
+import { Sword, Shield } from 'lucide-react';
 
 interface BattleArenaProps {
   player: Character;
@@ -30,6 +29,28 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
   const maxPower = 100;
   const powerGainPerTurn = 20;
   const difficultyMultiplier = 1 + (difficulty * 0.1);
+
+  const getCharacterColor = (id: number) => {
+    const colors = [
+      'from-blue-500 to-cyan-500',      // Goku
+      'from-purple-500 to-blue-500',    // Vegeta
+      'from-red-500 to-orange-500',     // Jiren
+      'from-gray-500 to-purple-500',    // Hit
+      'from-pink-500 to-red-500'        // Goku Black
+    ];
+    return colors[(id - 1) % colors.length];
+  };
+
+  const getEnemyColor = (id: number) => {
+    const colors = [
+      'from-purple-600 to-pink-600',    // Freezer
+      'from-green-600 to-lime-600',     // Cell
+      'from-yellow-600 to-orange-600',  // Beerus
+      'from-gray-600 to-slate-600',     // Zamasu
+      'from-emerald-600 to-teal-600'    // Broly
+    ];
+    return colors[(id - 101) % colors.length];
+  };
 
   useEffect(() => {
     if (!isPlayerTurn && !isGameOver) {
@@ -217,7 +238,7 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
             </div>
           </div>
           
-          {/* Arena de combate con personajes mejorada */}
+          {/* Arena de combate con personajes */}
           <div className="battle-arena relative w-full rounded-lg p-2 h-64 md:h-80 overflow-hidden">
             {/* Jugador */}
             <div className={`player-character ${playerAnimating ? `animate-${playerAnimating}` : ''}`}>
@@ -226,11 +247,9 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
                   <div className="ki-effect player-ki absolute inset-0 w-full h-full animate-pulse"></div>
                 )}
                 
-                <img 
-                  src={player.imageSrc} 
-                  alt={player.name}
-                  className="character-image z-10 object-contain max-h-32 md:max-h-48" 
-                />
+                <div className={`character-image bg-gradient-to-b ${getCharacterColor(player.id)} w-full h-full rounded-md flex items-center justify-center text-4xl md:text-6xl font-bold text-white drop-shadow-lg`}>
+                  {player.name.charAt(0)}
+                </div>
                 
                 <div className="character-shadow"></div>
                 
@@ -247,11 +266,9 @@ const BattleArena: React.FC<BattleArenaProps> = ({ player, enemy, difficulty, on
                   <div className="ki-effect enemy-ki absolute inset-0 w-full h-full animate-pulse"></div>
                 )}
                 
-                <img 
-                  src={enemy.imageSrc} 
-                  alt={enemy.name}
-                  className="character-image z-10 object-contain max-h-32 md:max-h-48" 
-                />
+                <div className={`character-image bg-gradient-to-b ${getEnemyColor(enemy.id)} w-full h-full rounded-md flex items-center justify-center text-4xl md:text-6xl font-bold text-white drop-shadow-lg`}>
+                  {enemy.name.charAt(0)}
+                </div>
                 
                 <div className="character-shadow"></div>
                 

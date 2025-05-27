@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Character, characters } from '../data/characters';
 import { Button } from '@/components/ui/button';
-import { Star } from 'lucide-react';
 
 interface CharacterSelectProps {
   onSelect: (character: Character) => void;
@@ -19,6 +18,17 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ onSelect }) => {
     if (selectedCharacter) {
       onSelect(selectedCharacter);
     }
+  };
+
+  const getCharacterColor = (id: number) => {
+    const colors = [
+      'from-blue-500 to-cyan-500',      // Goku
+      'from-purple-500 to-blue-500',    // Vegeta
+      'from-red-500 to-orange-500',     // Jiren
+      'from-gray-500 to-purple-500',    // Hit
+      'from-pink-500 to-red-500'        // Goku Black
+    ];
+    return colors[(id - 1) % colors.length];
   };
 
   return (
@@ -40,18 +50,8 @@ const CharacterSelect: React.FC<CharacterSelectProps> = ({ onSelect }) => {
           >
             <div className="relative">
               <div className="ki-aura"></div>
-              <div className="bg-gradient-to-b from-dbs-purple/10 to-dbs-vividPurple/20 aspect-square rounded-md flex items-center justify-center mb-4 overflow-hidden">
-                <img 
-                  src={character.imageSrc} 
-                  alt={character.name}
-                  className="w-full h-full object-cover rounded-md"
-                  onError={(e) => {
-                    // Fallback si la imagen no carga
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.nextElementSibling!.style.display = 'flex';
-                  }}
-                />
-                <div className="text-5xl font-bold text-dbs-vividPurple hidden w-full h-full items-center justify-center">
+              <div className={`bg-gradient-to-b ${getCharacterColor(character.id)} aspect-square rounded-md flex items-center justify-center mb-4 overflow-hidden`}>
+                <div className="text-5xl md:text-6xl font-bold text-white drop-shadow-lg">
                   {character.name.charAt(0)}
                 </div>
               </div>

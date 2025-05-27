@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import CharacterSelect from '../components/CharacterSelect';
 import GameWorld from '../components/GameWorld';
@@ -19,6 +18,17 @@ const Index = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [currentWorld, setCurrentWorld] = useState<World | null>(null);
   const [completedWorlds, setCompletedWorlds] = useState<number[]>([]);
+
+  const getCharacterColor = (id: number) => {
+    const colors = [
+      'from-blue-500 to-cyan-500',      // Goku
+      'from-purple-500 to-blue-500',    // Vegeta
+      'from-red-500 to-orange-500',     // Jiren
+      'from-gray-500 to-purple-500',    // Hit
+      'from-pink-500 to-red-500'        // Goku Black
+    ];
+    return colors[(id - 1) % colors.length];
+  };
 
   const handleCharacterSelect = (character: Character) => {
     setSelectedCharacter(character);
@@ -74,11 +84,9 @@ const Index = () => {
               {selectedCharacter && (
                 <div className="mt-4 inline-flex items-center bg-dbs-darkPurple/70 px-4 py-2 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <img 
-                      src={selectedCharacter.imageSrc} 
-                      alt={selectedCharacter.name} 
-                      className="w-8 h-8 object-contain rounded-full" 
-                    />
+                    <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${getCharacterColor(selectedCharacter.id)} flex items-center justify-center text-white font-bold text-sm`}>
+                      {selectedCharacter.name.charAt(0)}
+                    </div>
                     <div>
                       <span className="text-dbs-purple font-semibold mr-2">Personaje:</span> 
                       <span className="text-white">{selectedCharacter.name}</span>

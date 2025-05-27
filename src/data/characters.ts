@@ -19,7 +19,7 @@ export const characters: Character[] = [
   {
     id: 1,
     name: "Goku (Ultra Instinto)",
-    imageSrc: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=600&fit=crop&crop=face", // Placeholder - reemplazar con imagen real de Goku UI
+    imageSrc: "", // Sin imagen - se mostrará inicial
     health: 100,
     power: 95,
     speed: 90,
@@ -32,7 +32,7 @@ export const characters: Character[] = [
   {
     id: 2,
     name: "Vegeta (Evolución Blue)",
-    imageSrc: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=400&h=600&fit=crop&crop=face", // Placeholder - reemplazar con imagen real de Vegeta Blue
+    imageSrc: "", // Sin imagen - se mostrará inicial
     health: 100,
     power: 90,
     speed: 85,
@@ -45,7 +45,7 @@ export const characters: Character[] = [
   {
     id: 3,
     name: "Jiren",
-    imageSrc: "https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=400&h=600&fit=crop&crop=face", // Placeholder - reemplazar con imagen real de Jiren
+    imageSrc: "", // Sin imagen - se mostrará inicial
     health: 100,
     power: 100,
     speed: 80,
@@ -58,7 +58,7 @@ export const characters: Character[] = [
   {
     id: 4,
     name: "Hit",
-    imageSrc: "https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=400&h=600&fit=crop&crop=face", // Placeholder - reemplazar con imagen real de Hit
+    imageSrc: "", // Sin imagen - se mostrará inicial
     health: 100,
     power: 85,
     speed: 95,
@@ -71,7 +71,7 @@ export const characters: Character[] = [
   {
     id: 5,
     name: "Goku Black (Rosé)",
-    imageSrc: "https://images.unsplash.com/photo-1583864697784-a0efc8379f70?w=400&h=600&fit=crop&crop=face", // Placeholder - reemplazar con imagen real de Goku Black
+    imageSrc: "", // Sin imagen - se mostrará inicial
     health: 100,
     power: 88,
     speed: 87,
@@ -88,7 +88,7 @@ export const enemies: Character[] = [
   {
     id: 101,
     name: "Freezer",
-    imageSrc: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=600&fit=crop&crop=face", // Placeholder - reemplazar con imagen real de Frieza
+    imageSrc: "", // Sin imagen - se mostrará inicial
     health: 80,
     power: 75,
     speed: 70,
@@ -101,7 +101,7 @@ export const enemies: Character[] = [
   {
     id: 102,
     name: "Cell",
-    imageSrc: "https://images.unsplash.com/photo-1566753323558-f4e0952af115?w=400&h=600&fit=crop&crop=face", // Placeholder - reemplazar con imagen real de Cell
+    imageSrc: "", // Sin imagen - se mostrará inicial
     health: 85,
     power: 80,
     speed: 75,
@@ -114,7 +114,7 @@ export const enemies: Character[] = [
   {
     id: 103,
     name: "Beerus",
-    imageSrc: "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&h=600&fit=crop&crop=face", // Placeholder - reemplazar con imagen real de Beerus
+    imageSrc: "", // Sin imagen - se mostrará inicial
     health: 90,
     power: 90,
     speed: 85,
@@ -127,7 +127,7 @@ export const enemies: Character[] = [
   {
     id: 104,
     name: "Zamasu",
-    imageSrc: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=400&h=600&fit=crop&crop=face", // Placeholder - reemplazar con imagen real de Zamasu
+    imageSrc: "", // Sin imagen - se mostrará inicial
     health: 95,
     power: 85,
     speed: 80,
@@ -140,7 +140,7 @@ export const enemies: Character[] = [
   {
     id: 105,
     name: "Broly",
-    imageSrc: "https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=400&h=600&fit=crop&crop=face", // Placeholder - reemplazar con imagen real de Broly
+    imageSrc: "", // Sin imagen - se mostrará inicial
     health: 100,
     power: 95,
     speed: 75,
